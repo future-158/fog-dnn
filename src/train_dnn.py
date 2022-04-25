@@ -140,8 +140,8 @@ def objective_wrapper(config):
             gradient_clip_algorithm="value",
             limit_train_batches=10 if hparams.test_run else None,
             limit_val_batches=10 if hparams.test_run else None,
+            max_epochs=1 if hparams.test_run else hparams.trainer_config.max_epochs, # early stop 안됐을 때 달성할 수 있는 최대 epoch
             num_sanity_val_steps=0,
-            max_epochs=hparams.trainer_config.max_epochs, # early stop 안됐을 때 달성할 수 있는 최대 epoch
             # max_steps=10, # early stop 안됐을 때 달성할 수 있는 최대 epoch            gpus=1,
             
         )
@@ -199,8 +199,9 @@ def evaluate(cfg: DictConfig, refit=False):
     # load data && make dataloader
     model.prepare_data()  # load, transform data
     model.setup()
-    trainer = pl.Trainer(gpus=1) # gpu 1개 사용
 
+    # trainer = pl.Trainer(gpus=1) # gpu 1개 사용
+    trainer = pl.Trainer(gpus=0) # gpu 1개 사용
     # test
     trainer.test(model, dataloaders=[model.test_dataloader()])
 

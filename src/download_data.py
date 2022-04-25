@@ -25,6 +25,7 @@ station_codes = ['SF_0001',
  'SF_0011']
 
 
+
 for station_code in station_codes:
     url = cfg.template.data.format(
         **{

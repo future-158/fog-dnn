@@ -3,7 +3,6 @@
 #  - override hydra/launcher: joblib
 
 test_run: true
-  
 
 station_code: SF_0003
 pred_hour: 1
@@ -19,15 +18,14 @@ log_prefix: ./data/log/${station_code}/${pred_hour}/${model_name}
 hydra:
   run:
     dir: ${log_prefix}/outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
-  
+
   sweep:
     dir: ${log_prefix}/multirun/${now:%Y-%m-%d}/${now:%H-%M-%S}
-    subdir: ${hydra.job.num}    
+    subdir: ${hydra.job.num}
 
 template:
-  data: ftp://{ftp_user}:{ftp_password}@{ftp_host}/public/Data/2021_data/data/{station_code}.pkl
+  data: ftp://{ftp_user}:{ftp_password}@{ftp_host}/public/Data/2021_data/data/{station_code}.csv.zip
   dataset: ftp://{ftp_user}:{ftp_password}@{ftp_host}/public/Data/2021_data/dataset/{station_code}.pkl
-
 
 # wd: /workspace
 # dataset_root: /dataset
@@ -35,7 +33,8 @@ dataset_path: data/processed/${station_code}.pkl
 # result_dest: ${wd}/result/${model}/${station_code}_${model}_${pred_hour}
 # scratch_dest: ${wd}/result/${model}/${station_code}_${model}_${pred_hour}
 
-code_name: 
+code_name:
+  SF_0001: 부산항
   SF_0002: 부산항신항
   SF_0003: 인천항
   SF_0004: 평택당진항
@@ -46,19 +45,18 @@ code_name:
   SF_0009: 해운대
   SF_0011: 포항항
 
-
 # env:
 #   CUDA_VISIBLE_DEVICES: '2'
 # ray:
 #   init:
 #     num_cpus: 50
 #     num_gpus: 1
-      
+
 trainer_config:
   max_epochs: 50
   gpus: 1
 
-# data_config: 
+# data_config:
 #   use_relabel: False
 #   use_reweight: False
 
@@ -71,6 +69,3 @@ optuna_config:
   storage: sqlite:///${optuna_config.study_name}
   # storage: 'sqlite:///:memory:'
   load_if_exists: false
-
-
-
