@@ -1,0 +1,22 @@
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+dependencies:
+  - pytorch==1.10.1
+  - cudatoolkit=11.3
+  - scikit-learn
+  - ipykernel
+  - pip
+  - pip:
+    - joblib
+    - python-dotenv
+    - optuna
+    - wget
+    - hydra-core
+    - pytorch-lightning
+    - xarray    
+
+variables:
+  VAR1: valueA
+  VAR2: valueB

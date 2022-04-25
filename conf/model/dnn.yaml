@@ -1,0 +1,10 @@
+label_name: y_${model.pred_hour}
+model_name: dnn
+
+optuna_config:
+  n_trials: 100
+  time_budget: 1000000
+  study_name: ${model.station_code}_${model.pred_hour}_${model.model_name}
+  storage: redis://@192.168.121.231:6379/db
+
+

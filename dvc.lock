@@ -1,0 +1,4 @@
+schema: '2.0'
+stages:
+  clean:
+    cmd: conda remove --prefix venv -y --all
