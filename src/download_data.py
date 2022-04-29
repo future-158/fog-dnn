@@ -27,27 +27,33 @@ station_codes = ['SF_0001',
 
 
 for station_code in station_codes:
-    url = cfg.template.data.format(
-        **{
-            'ftp_user': os.environ['ftp_user'],
-            'ftp_password': os.environ['ftp_password'],
-            'ftp_host': os.environ['ftp_host'],
-            'station_code': station_code,
-        }
-    )
-    out = Path('data') / 'clean' / os.path.basename(url)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    wget.download(url, out.as_posix())
+    try:
+        url = cfg.template.data.format(
+            **{
+                'ftp_user': os.environ['ftp_user'],
+                'ftp_password': os.environ['ftp_password'],
+                'ftp_host': os.environ['ftp_host'],
+                'station_code': station_code,
+            }
+        )
+        out = Path('data') / 'clean' / os.path.basename(url)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        wget.download(url, out.as_posix())
+    except Exception:
+        pass
 
 for station_code in station_codes:
-    url = cfg.template.dataset.format(
-        **{
-            'ftp_user': os.environ['ftp_user'],
-            'ftp_password': os.environ['ftp_password'],
-            'ftp_host': os.environ['ftp_host'],
-            'station_code': station_code,
-        }
-    )
-    out = Path('data') / 'processed' / os.path.basename(url)
-    out.parent.mkdir(parents=True, exist_ok=True)
-    wget.download(url, out.as_posix())
+    try:
+        url = cfg.template.dataset.format(
+            **{
+                'ftp_user': os.environ['ftp_user'],
+                'ftp_password': os.environ['ftp_password'],
+                'ftp_host': os.environ['ftp_host'],
+                'station_code': station_code,
+            }
+        )
+        out = Path('data') / 'processed' / os.path.basename(url)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        wget.download(url, out.as_posix())
+    except Exception:
+        pass
