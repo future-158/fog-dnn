@@ -25,7 +25,7 @@ hydra:
 
 template:
   data: ftp://{ftp_user}:{ftp_password}@{ftp_host}/data/khoa/2021/data/{station_code}.csv.zip
-  dataset: ftp://{ftp_user}:{ftp_password}@{ftp_host}/data/khoa/2021/data/{station_code}.pkl
+  dataset: ftp://{ftp_user}:{ftp_password}@{ftp_host}/data/khoa/2021/dataset/{station_code}.pkl
   # data: ftp://{ftp_user}:{ftp_password}@{ftp_host}/public/Data/2021_data/data/{station_code}.pkl
   # dataset: ftp://{ftp_user}:{ftp_password}@{ftp_host}/public/Data/2021_data/dataset/{station_code}.pkl
 

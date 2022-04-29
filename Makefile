@@ -14,6 +14,12 @@ list: # list packages
 venv: # install dependencies in venv folder
 	conda env create --file environment.yml --prefix venv
 
+test: # test
+	rm -rf ./data/clean ./data/processed && \
+	conda run --prefix venv python src/download_data.py && \
+	conda run --prefix venv python src/train_dnn.py test_run=true optuna_config.n_trials=1 && \
+	echo 'success'
+
 clean: # uninstall venv folder
 	conda uninstall --prefix venv/ -y --all
 
@@ -25,6 +31,3 @@ pred: # pred
 
 post: # pred
 	CUDA_VISIBLE_DEVICES=$(CUDA_VISIBLE_DEVICES) taskset --cpu-list $(CPU_LIST) conda run --prefix venv/ python  $(POST)
-
-hpo:
-	python train_ml.py -m pred_hour=1,3,6 model_name=cb,xgb,rf,lgb station=SF_0002,SF_0003,SF_0004,SF_0005,SF_0006,SF_0007,SF_0008,SF_0009,SF_0011
